@@ -1,0 +1,42 @@
+enum Choice {
+    STONE
+    SCISSORS
+    PAPER
+}
+
+type GameRound {
+    id: ID!
+    human: Choice!
+    computer: Choice!
+}
+
+input GameRoundInput {
+    id: ID!
+    human: Choice!
+    computer: Choice!
+}
+
+type Game {
+    id: ID!
+    name: String!
+    rounds: [GameRound]!
+}
+
+input GameInput {
+    id: ID!
+    name: String!
+    rounds: [GameRoundInput]!
+}
+
+type MutationResponse {
+    statusCode: Int
+    message: String
+}
+
+type Query {
+    listAllGames: [Game]
+}
+
+type Mutation {
+    saveGame(game: GameInput): MutationResponse
+}
