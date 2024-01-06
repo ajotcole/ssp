@@ -8,7 +8,7 @@ Angular frontend.
 ### Todos
 
 - [x] Create base folder structure
-- [ ] Backend: Create GraphQL Schema
+- [x] Backend: Create GraphQL Schema
 - [ ] Backend: Create Test Setup
 - [ ] Backend: Build Main Logic
 - [ ] Frontend: Add UI Framework
