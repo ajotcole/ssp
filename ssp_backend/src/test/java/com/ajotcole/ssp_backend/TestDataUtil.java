@@ -11,59 +11,54 @@ public class TestDataUtil {
 
     public static Player createTestPlayerA() {
         return Player.builder()
-                .id(5)
                 .name("Mister Foo")
                 .build();
     }
 
     public static Player createTestPlayerB() {
         return Player.builder()
-                .id(123)
                 .name("Mister Bar")
                 .build();
     }
 
     public static Player createTestPlayerC() {
         return Player.builder()
-                .id(987)
                 .name("Mister Baz")
                 .build();
     }
 
-    public static Game createTestGame() {
+    public static Game createTestGame(Player player) {
         return Game.builder()
-                .id(4)
                 .date(LocalDate.of(2024, 1, 6))
-                .playerId(85L)
+                .player(player)
                 .build();
     }
 
-    public static Round createTestRound() {
+    public static Round createTestRound(Game game) {
         return Round.builder()
-                .id(123)
-                .gameId(35)
+                .game(game)
                 .humanChoice("scissor")
                 .computerChoice("rock")
                 .winner("computer")
                 .build();
     }
 
-    public static List<Round> createThreeTestRounds(Integer gameId) {
+    public static List<Round> createThreeTestRounds(Game game) {
         return List.of(
                 Round.builder()
-                        .gameId(gameId)
+                        .game(game)
                         .humanChoice("scissor")
                         .computerChoice("rock")
                         .winner("computer")
                         .build(),
                 Round.builder()
-                        .gameId(gameId)
+                        .game(game)
                         .humanChoice("rock")
                         .computerChoice("rock")
                         .winner("tie")
                         .build(),
                 Round.builder()
-                        .gameId(gameId)
+                        .game(game)
                         .humanChoice("scissor")
                         .computerChoice("paper")
                         .winner("human")

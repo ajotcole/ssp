@@ -1,5 +1,6 @@
 package com.ajotcole.ssp_backend.domain;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
+@Table(name = "players")
 public class Player {
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "players_id_seq")
+    private Long id;
 
     private String name;
 

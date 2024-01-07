@@ -1,8 +1,6 @@
-package com.ajotcole.ssp_backend.dao.impl;
+package com.ajotcole.ssp_backend.repository;
 
 import com.ajotcole.ssp_backend.TestDataUtil;
-import com.ajotcole.ssp_backend.dao.PlayerDao;
-import com.ajotcole.ssp_backend.domain.Game;
 import com.ajotcole.ssp_backend.domain.Player;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,26 +16,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class GameDaoImplIntegrationTest {
-    private final PlayerDao playerDao;
-    private final GameDaoImpl underTest;
+public class PlayerRepositoryIntegrationTest {
+
+    private final PlayerRepository underTest;
 
     @Autowired
-    public GameDaoImplIntegrationTest(GameDaoImpl underTest, PlayerDao playerDao) {
+    public PlayerRepositoryIntegrationTest(PlayerRepository underTest) {
         this.underTest = underTest;
-        this.playerDao = playerDao;
     }
 
     @Test
     public void testThatGameCanBeCreatedAndRecalled() {
         Player player = TestDataUtil.createTestPlayerA();
-        playerDao.create(player.getName());
-        Game game = TestDataUtil.createTestGame();
-        game.setPlayerId(player.getId());
-        underTest.create(game);
-        Optional<Game> result = underTest.findOne(game.getId());
+        underTest.save(player);
+        Optional<Player> result = underTest.findById(player.getId());
         assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(game);
+        assertThat(result.get()).isEqualTo(player);
     }
 
 

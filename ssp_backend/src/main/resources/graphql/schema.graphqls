@@ -29,6 +29,7 @@ input RoundInput {
 
 type Query {
     findAllPlayers: [Player]
+    findGames(playerId: Int): [Game]
 }
 
 type Mutation {
