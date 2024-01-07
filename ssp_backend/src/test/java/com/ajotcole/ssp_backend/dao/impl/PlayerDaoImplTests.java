@@ -1,6 +1,6 @@
 package com.ajotcole.ssp_backend.dao.impl;
 
-import com.ajotcole.ssp_backend.dao.impl.PlayerDaoImpl;
+import com.ajotcole.ssp_backend.TestDataUtil;
 import com.ajotcole.ssp_backend.domain.Player;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,17 +24,14 @@ public class PlayerDaoImplTests {
 
     @Test
     public void createPlayerWithCorrectSql() {
-        Player player = Player.builder()
-                .id(5L)
-                .name("Mister Foo")
-                .build();
+        Player player = TestDataUtil.createTestPlayerA();
 
-        underTest.create(player);
+        underTest.create(player.getName());
 
         //Since nothing is returned, using mockito verify
         verify(jdbcTemplate).update(
-                eq("INSERT INTO players (id, name) VALUES (?, ?)"),
-                eq(5L), eq("Mister Foo")
+                eq("INSERT INTO players (name) VALUES (?)"),
+                eq("Mister Foo")
         );
     }
 
@@ -46,5 +43,14 @@ public class PlayerDaoImplTests {
                 ArgumentMatchers.<PlayerDaoImpl.PlayerRowMapper>any(),
                 eq(5L)
         );
+    }
+
+    @Test
+    public void findAllPlayersWithCorrectSql() {
+        underTest.findAll();
+        verify(jdbcTemplate).query((
+                eq("SELECT id, name FROM players")),
+                ArgumentMatchers.<PlayerDaoImpl.PlayerRowMapper>any()
+                );
     }
 }

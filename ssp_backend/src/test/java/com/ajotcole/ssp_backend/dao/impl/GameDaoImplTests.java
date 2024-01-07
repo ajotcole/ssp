@@ -1,5 +1,6 @@
 package com.ajotcole.ssp_backend.dao.impl;
 
+import com.ajotcole.ssp_backend.TestDataUtil;
 import com.ajotcole.ssp_backend.dao.impl.GameDaoImpl;
 import com.ajotcole.ssp_backend.dao.impl.PlayerDaoImpl;
 import com.ajotcole.ssp_backend.domain.Game;
@@ -28,12 +29,7 @@ public class GameDaoImplTests {
 
     @Test
     public void createGameWithCorrectSql() {
-        Game game = Game.builder()
-                        .id(4L)
-                        .date(LocalDate.of(2024, 1, 6))
-                        .playerId(85L)
-                                .build();
-
+        Game game = TestDataUtil.createTestGame();
 
         underTest.create(game);
 

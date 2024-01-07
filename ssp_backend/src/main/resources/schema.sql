@@ -3,13 +3,13 @@ DROP TABLE IF EXISTS "games";
 DROP TABLE IF EXISTS "rounds";
 
 CREATE TABLE "players"(
-    "id" bigint DEFAULT nextval('players_id_seq') NOT NULL,
+    "id" int DEFAULT nextval('players_id_seq') NOT NULL,
     "name" text,
     CONSTRAINT "players_pkey" PRIMARY KEY ("id")
 );
 
 CREATE TABLE "games"(
-    "id" bigint DEFAULT nextval('games_id_seq') NOT NULL,
+    "id" int DEFAULT nextval('games_id_seq') NOT NULL,
     "date" date,
     "player_id" bigint,
     CONSTRAINT "games_pkey" PRIMARY KEY ("id"),
@@ -17,7 +17,7 @@ CREATE TABLE "games"(
 );
 
 CREATE TABLE "rounds"(
-    "id" bigint DEFAULT nextval('rounds_id_seq') NOT NULL,
+    "id" int DEFAULT nextval('rounds_id_seq') NOT NULL,
     "game_id" bigint,
     "human_choice" text,
     "computer_choice" text,

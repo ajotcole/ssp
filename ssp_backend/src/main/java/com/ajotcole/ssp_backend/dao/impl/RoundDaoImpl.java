@@ -6,12 +6,14 @@ import com.ajotcole.ssp_backend.domain.Player;
 import com.ajotcole.ssp_backend.domain.Round;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class RoundDaoImpl implements RoundDao {
     private final JdbcTemplate jdbcTemplate;
 

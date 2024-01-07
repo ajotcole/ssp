@@ -4,12 +4,15 @@ import com.ajotcole.ssp_backend.dao.PlayerDao;
 import com.ajotcole.ssp_backend.domain.Player;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
+@Component
 public class PlayerDaoImpl implements PlayerDao {
     private final JdbcTemplate jdbcTemplate;
 
@@ -18,8 +21,13 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public void create(Player player) {
-        jdbcTemplate.update("INSERT INTO players (id, name) VALUES (?, ?)", player.getId(), player.getName());
+    public Player create(String name) {
+
+        Random random = new Random();
+        int id = random.nextInt();
+
+        jdbcTemplate.update("INSERT INTO players (id, name) VALUES (?, ?)", id, name);
+        return null;
     }
 
     @Override
@@ -29,6 +37,12 @@ public class PlayerDaoImpl implements PlayerDao {
                 playerId);
 
          return results.stream().findFirst();
+    }
+
+    @Override
+    public List<Player> findAll() {
+        return  jdbcTemplate.query("SELECT id, name FROM players",
+                new PlayerRowMapper());
     }
 
     public static class PlayerRowMapper implements RowMapper<Player> {

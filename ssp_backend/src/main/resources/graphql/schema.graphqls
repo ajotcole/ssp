@@ -1,42 +1,26 @@
-enum Choice {
-    STONE
-    SCISSORS
-    PAPER
-}
-
-type GameRound {
-    id: ID!
-    human: Choice!
-    computer: Choice!
-}
-
-input GameRoundInput {
-    id: ID!
-    human: Choice!
-    computer: Choice!
+type Player {
+    id: Int
+    name: String
 }
 
 type Game {
-    id: ID!
-    name: String!
-    rounds: [GameRound]!
+    id: Int
+    player_id: Int
+    rounds: [Round]
 }
 
-input GameInput {
-    id: ID!
-    name: String!
-    rounds: [GameRoundInput]!
-}
-
-type MutationResponse {
-    statusCode: Int
-    message: String
+type Round {
+    id: Int
+    human_choice: String
+    computer_choice: String
+    winner: String
 }
 
 type Query {
-    listAllGames: [Game]
+    findAllPlayers: [Player]
 }
 
 type Mutation {
-    saveGame(game: GameInput): MutationResponse
+    createPlayer(name: String!): Player
+    createGame(game: Game!): Game
 }

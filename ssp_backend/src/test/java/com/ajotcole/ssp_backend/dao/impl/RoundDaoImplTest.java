@@ -1,5 +1,6 @@
 package com.ajotcole.ssp_backend.dao.impl;
 
+import com.ajotcole.ssp_backend.TestDataUtil;
 import com.ajotcole.ssp_backend.dao.impl.GameDaoImpl;
 import com.ajotcole.ssp_backend.dao.impl.RoundDaoImpl;
 import com.ajotcole.ssp_backend.domain.Game;
@@ -28,13 +29,7 @@ public class RoundDaoImplTest {
     @Test
     public void createGameWithCorrectSql() {
 
-        Round round = Round.builder()
-                .id(123L)
-                .gameId(35L)
-                .humanChoice("scissor")
-                .computerChoice("rock")
-                .winner("computer")
-                .build();
+        Round round = TestDataUtil.createTestRound();
 
         underTest.create(round);
 
