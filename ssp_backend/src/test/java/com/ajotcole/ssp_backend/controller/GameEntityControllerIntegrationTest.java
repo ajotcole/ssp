@@ -1,10 +1,8 @@
 package com.ajotcole.ssp_backend.controller;
 
 import com.ajotcole.ssp_backend.TestDataUtil;
-import com.ajotcole.ssp_backend.domain.Game;
-import com.ajotcole.ssp_backend.domain.Player;
+import com.ajotcole.ssp_backend.domain.entities.PlayerEntity;
 import com.ajotcole.ssp_backend.repository.PlayerRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,27 +22,27 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @AutoConfigureGraphQlTester
-public class GameControllerIntegrationTest {
+public class GameEntityControllerIntegrationTest {
     @Autowired
     GraphQlTester graphQlTester;
 
     private final PlayerRepository playerRepository;
 
     @Autowired
-    public GameControllerIntegrationTest(PlayerRepository playerRepository) {
+    public GameEntityControllerIntegrationTest(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
 
     @Test
     public void testThatMultiplePlayersCanBeCreatedAndAllRecalled() {
-        Player playerA = TestDataUtil.createTestPlayerA();
-        playerRepository.save(playerA);
+        PlayerEntity playerEntityA = TestDataUtil.createTestPlayerA();
+        playerRepository.save(playerEntityA);
 
-        Player playerB = TestDataUtil.createTestPlayerB();
-        playerRepository.save(playerB);
+        PlayerEntity playerEntityB = TestDataUtil.createTestPlayerB();
+        playerRepository.save(playerEntityB);
 
-        Player playerC = TestDataUtil.createTestPlayerC();
-        playerRepository.save(playerC);
+        PlayerEntity playerEntityC = TestDataUtil.createTestPlayerC();
+        playerRepository.save(playerEntityC);
 
         //language=GraphQL
         String query = """
@@ -56,10 +54,10 @@ public class GameControllerIntegrationTest {
         }
         """;
 
-        List<Player> results = graphQlTester.document(query)
+        List<PlayerEntity> results = graphQlTester.document(query)
                 .execute()
                 .path("findAllPlayers")
-                .entityList(Player.class)
+                .entityList(PlayerEntity.class)
                 .get();
 
         assertThat(results).hasSize(3);
@@ -68,7 +66,7 @@ public class GameControllerIntegrationTest {
 
     @Test
     public void testThatPlayerIsCreatedViaGraphQLandCanBeRetrieved() {
-        Player playerA = TestDataUtil.createTestPlayerA();
+        PlayerEntity playerEntityA = TestDataUtil.createTestPlayerA();
 
         //language=GraphQL
         String mutation = """
@@ -81,7 +79,7 @@ public class GameControllerIntegrationTest {
         """;
 
         Map<String, Object> variables = new HashMap<>();
-        variables.put("name", playerA.getName());
+        variables.put("name", playerEntityA.getName());
 
         String mutationWithData = insertVariables(mutation, variables);
 
@@ -99,10 +97,10 @@ public class GameControllerIntegrationTest {
         }
         """;
 
-        List<Player> results = graphQlTester.document(query)
+        List<PlayerEntity> results = graphQlTester.document(query)
                 .execute()
                 .path("findAllPlayers")
-                .entityList(Player.class)
+                .entityList(PlayerEntity.class)
                 .get();
 
         assertThat(results).hasSize(1);
@@ -110,7 +108,7 @@ public class GameControllerIntegrationTest {
 
     //Create game for a user with three rounds
 
-    @Test
+  //  @Test
 //    public void testThatGameWithThreeRoundsBeenCreated() {
 //        Player player = TestDataUtil.createTestPlayerA();
 //        playerRepository.save(player);
@@ -190,6 +188,19 @@ public class GameControllerIntegrationTest {
 //    }
 
     // Retrieve all games with Data for player joined
+
+    @Test
+    public void testThatAllGamesAreBeingRetrievedWithMetadata() {
+
+        //language=GraphQL
+        String query = """
+                
+                """
+
+
+
+
+    }
 
 
 

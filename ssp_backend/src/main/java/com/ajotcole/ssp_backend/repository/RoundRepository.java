@@ -1,9 +1,9 @@
 package com.ajotcole.ssp_backend.repository;
 
-import com.ajotcole.ssp_backend.domain.Round;
+import com.ajotcole.ssp_backend.domain.entities.RoundEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoundRepository extends CrudRepository<Round, Long> {
+public interface RoundRepository extends CrudRepository<RoundEntity, Long> {
 }

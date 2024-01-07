@@ -1,5 +1,6 @@
-package com.ajotcole.ssp_backend.domain;
+package com.ajotcole.ssp_backend.domain.entities;
 
+import com.ajotcole.ssp_backend.domain.entities.GameEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,13 +13,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "rounds")
-public class Round {
+public class RoundEntity {
     @Id
     @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "rounds_id_seq")
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "game_id")
-    private Game game;
+    private GameEntity gameEntity;
     private String humanChoice;
     private String computerChoice;
     private String winner;

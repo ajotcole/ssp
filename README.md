@@ -1,7 +1,7 @@
 # Stone, Scissors, Paper Minigame
 
 ### TL;DR;
-This mono repo which contains a mini game of Stone, Scissors, Paper
+This mono repo which contains a mini gameEntity of Stone, Scissors, Paper
 base on Java Spring Boot in the backend and 
 Angular frontend. 
 

@@ -1,4 +1,4 @@
-package com.ajotcole.ssp_backend.domain;
+package com.ajotcole.ssp_backend.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +14,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "games")
-public class Game {
+public class GameEntity {
     @Id
     @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "games_id_seq")
     private Long id;
@@ -23,9 +22,8 @@ public class Game {
     private LocalDate date;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "player_id")
-    private Player player;
+    private PlayerEntity playerEntity;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rounds")
-    private List<Round> rounds;
+    private Integer rounds;
+    private String winner;
 }

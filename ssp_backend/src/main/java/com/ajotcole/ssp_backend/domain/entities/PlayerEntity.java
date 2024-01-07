@@ -1,4 +1,4 @@
-package com.ajotcole.ssp_backend.domain;
+package com.ajotcole.ssp_backend.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "players")
-public class Player {
+public class PlayerEntity {
     @Id
     @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "players_id_seq")
     private Long id;

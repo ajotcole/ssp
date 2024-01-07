@@ -6,7 +6,8 @@ type Player {
 type Game {
     id: Int
     player_id: Int
-    rounds: [Round]
+    rounds: Int
+    winner: String
 }
 
 input GameInput {
@@ -34,5 +35,5 @@ type Query {
 
 type Mutation {
     createPlayer(name: String!): Player
-    createGame(game: GameInput!): Game
+    createGame(gameEntity: GameInput!): Game
 }
