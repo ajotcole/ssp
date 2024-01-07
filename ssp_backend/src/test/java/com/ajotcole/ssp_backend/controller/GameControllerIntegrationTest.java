@@ -2,6 +2,7 @@ package com.ajotcole.ssp_backend.controller;
 
 import com.ajotcole.ssp_backend.TestDataUtil;
 import com.ajotcole.ssp_backend.dao.PlayerDao;
+import com.ajotcole.ssp_backend.domain.Game;
 import com.ajotcole.ssp_backend.domain.Player;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -104,17 +105,58 @@ public class GameControllerIntegrationTest {
 
     @Test
     public void testThatGameWithThreeRoundsBeenCreated() {
+        Player player = TestDataUtil.createTestPlayerA();
+
+        Game game = TestDataUtil.createTestGame();
+
         //language=GraphQL
         String mutation = """
-                mutation {
-                createGame {
-                                
+                mutation createGame {
+                createGame(game: {
+                player_id: $playerId
+                rounds: [
+                    {
+                        human_choice: $round1_humanchoice
+                        computer_choice: $round1_computerchoice
+                        winner: $round1_winner
+                    },
+                    {
+                        human_choice: $round2_humanchoice
+                        computer_choice: $round2_computerchoice
+                        winner: $round2_winner
+                    },
+                    {
+                        human_choice: $round3_humanchoice
+                        computer_choice: $round3_computerchoice
+                        winner: $round3_winner
+                    }
+                ]
+                
+                }) {
+                          id,
+                          player_id,
+                          rounds {
+                              id
+                              human_choice
+                              computer_choice
+                              winner
+                          }
                                 }
-                
                 }
-                
-                
-                """
+                """;
+
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("player_id", player.getId());
+
+
+
+        String mutationWithData = insertVariables(mutation, variables);
+
+
+        graphQlTester.document(mutationWithData)
+                .execute()
+                .path("createGame");
     }
 
     // Retrieve all games with Data for player joined

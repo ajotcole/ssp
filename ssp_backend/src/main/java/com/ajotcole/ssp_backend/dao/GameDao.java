@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GameDao {
-    void create(Game game);
+    Game create(Game game);
 
     Optional<Game> findOne(long l);
 

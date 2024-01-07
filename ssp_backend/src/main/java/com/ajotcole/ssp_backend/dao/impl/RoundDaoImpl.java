@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Component
 public class RoundDaoImpl implements RoundDao {
@@ -22,9 +23,12 @@ public class RoundDaoImpl implements RoundDao {
     }
 
     public void create(Round round) {
+        Random random = new Random();
+        int id = random.nextInt();
+
         jdbcTemplate.update(
                 "INSERT INTO round (id, game_id, human_choice, computer_choice, winner) VALUES (?, ?, ?, ?, ?)",
-                round.getId(),
+                id,
                 round.getGameId(),
                 round.getHumanChoice(),
                 round.getComputerChoice(),
@@ -45,8 +49,8 @@ public class RoundDaoImpl implements RoundDao {
         @Override
         public Round mapRow(ResultSet rs, int rowNum) throws SQLException {
             return Round.builder()
-                    .id(rs.getLong("id"))
-                    .gameId(rs.getLong("game_id"))
+                    .id(rs.getInt("id"))
+                    .gameId(rs.getInt("game_id"))
                     .humanChoice(rs.getString("human_choice"))
                     .computerChoice(rs.getString("computer_choice"))
                     .winner(rs.getString("winner"))

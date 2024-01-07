@@ -36,7 +36,7 @@ public class RoundDaoImplTest {
         //Since nothing is returned, using mockito verify
         verify(jdbcTemplate).update(
                 eq("INSERT INTO round (id, game_id, human_choice, computer_choice, winner) VALUES (?, ?, ?, ?, ?)"),
-                eq(123L), eq(35L), eq("scissor"), eq("rock"), eq("computer")
+                eq(123), eq(35), eq("scissor"), eq("rock"), eq("computer")
         );
     }
 
@@ -46,7 +46,7 @@ public class RoundDaoImplTest {
         verify(jdbcTemplate).query(
                 eq("SELECT id, game_id, human_choice, computer_choice, winner FROM rounds WHERE id = ? LIMIT 1"),
                 ArgumentMatchers.<GameDaoImpl.GameRowMapper>any(),
-                eq(4L)
+                eq(4)
         );
     }
 

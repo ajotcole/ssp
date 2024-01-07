@@ -50,7 +50,7 @@ public class PlayerDaoImpl implements PlayerDao {
         @Override
         public Player mapRow(ResultSet rs, int rowNum) throws SQLException {
             return Player.builder()
-                    .id(rs.getLong("id"))
+                    .id(rs.getInt("id"))
                     .name(rs.getString("name"))
                     .build();
         }

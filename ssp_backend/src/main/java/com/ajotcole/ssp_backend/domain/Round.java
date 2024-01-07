@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Round {
-    private Long id;
-    private Long gameId;
+    private Integer id;
+    private Integer gameId;
     private String humanChoice;
     private String computerChoice;
     private String winner;

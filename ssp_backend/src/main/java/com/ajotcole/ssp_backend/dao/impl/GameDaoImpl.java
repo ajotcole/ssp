@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Component
 public class GameDaoImpl implements GameDao {
@@ -19,12 +20,17 @@ public class GameDaoImpl implements GameDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void create(Game game) {
+    public Game create(Game game) {
+        Random random = new Random();
+        int id = random.nextInt();
+
+
         jdbcTemplate.update(
                 "INSERT INTO games (id, date, player_id) VALUES (?, ?, ?)",
-                game.getId(),
+                id,
                 game.getDate(),
                 game.getPlayerId());
+        return null;
     }
 
     @Override
@@ -37,8 +43,9 @@ public class GameDaoImpl implements GameDao {
     }
 
     @Override
-    public List<Game> find() {
-        return null;
+    public List<Game> findMany() {
+        return jdbcTemplate.query("SELECT id, date, player_id FROM games",
+                new GameDaoImpl.GameRowMapper());
     }
 
 
@@ -46,8 +53,8 @@ public class GameDaoImpl implements GameDao {
         @Override
         public Game mapRow(ResultSet rs, int rowNum) throws SQLException {
             return Game.builder()
-                    .id(rs.getLong("id"))
-                    .playerId(rs.getLong("player_id"))
+                    .id(rs.getInt("id"))
+                    .playerId(rs.getInt("player_id"))
                     .date(rs.getDate("date").toLocalDate())
                     .build();
         }

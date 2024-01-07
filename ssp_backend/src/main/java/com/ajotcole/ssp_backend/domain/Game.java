@@ -12,9 +12,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class Game {
-    private Long id;
+    private Integer id;
 
     private LocalDate date;
 
-    private Long playerId;
+    private Integer playerId;
 }
