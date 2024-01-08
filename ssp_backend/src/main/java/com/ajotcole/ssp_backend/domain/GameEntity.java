@@ -1,4 +1,4 @@
-package com.ajotcole.ssp_backend.domain.entities;
+package com.ajotcole.ssp_backend.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,6 @@ public class GameEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "player_id")
     private PlayerEntity playerEntity;
-
     private Integer rounds;
     private String winner;
 }

@@ -1,6 +1,5 @@
-package com.ajotcole.ssp_backend.domain.entities;
+package com.ajotcole.ssp_backend.domain;
 
-import com.ajotcole.ssp_backend.domain.entities.GameEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

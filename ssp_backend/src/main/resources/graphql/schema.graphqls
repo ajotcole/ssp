@@ -5,26 +5,21 @@ type Player {
 
 type Game {
     id: Int
-    player_id: Int
+    playerId: Int
     rounds: Int
     winner: String
 }
 
-input GameInput {
-    player_id: Int
-    rounds: [RoundInput]
-}
-
 type Round {
     id: Int
-    human_choice: String
-    computer_choice: String
+    humanChoice: String
+    computerChoice: String
     winner: String
 }
 
 input RoundInput {
-    human_choice: String
-    computer_choice: String
+    humanChoice: String
+    computerChoice: String
     winner: String
 }
 
@@ -32,8 +27,8 @@ type Query {
     findAllPlayers: [Player]
     findGames(playerId: Int): [Game]
 }
-
 type Mutation {
     createPlayer(name: String!): Player
-    createGame(gameEntity: GameInput!): Game
+    createGame(playerId: Int!): Game
+    createGameWithRounds(playerId: Int!, roundEntities: [RoundInput]!): Game
 }
