@@ -2,8 +2,13 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrl: './game.component.scss'
+  template: `
+  <p>game works!</p>
+
+  `
+
+
+  ,
 })
 export class GameComponent {
 
