@@ -9,26 +9,26 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-goalboard',
   template: `
-    <h3 class="text-center">🎯 Goalboard 🎯</h3>
+    <h3 class="text-center">🎯 Scoreboard 🎯</h3>
     <table class="table table-striped">
       <thead>
         <tr>
-          <th sortable="name">Player Name</th>
-          <th sortable="rounds">Rounds</th>
-          <th sortable="name">Winner</th>
+          <th class="text-center">Player Name</th>
+          <th class="text-center">Rounds</th>
+          <th class="text-center">Winner</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let game of games | async">
-          <td>{{ game?.playerId }}</td>
-          <td>{{ game?.rounds }}</td>
-          <td>{{ game?.winner }}</td>
+          <td class="text-center">{{ game?.playerId }}</td>
+          <td class="text-center">{{ game?.rounds }}</td>
+          <td class="text-center">{{ game?.winner }}</td>
         </tr>
       </tbody>
     </table>
   `,
 })
-export class GoalboardComponent {
+export class ScoreboardComponent {
   games: Observable<FindAllGamesQuery['findGames']>;
 
   constructor(findAllGamesGQL: FindAllGamesGQL) {

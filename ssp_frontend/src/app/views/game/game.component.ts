@@ -1,4 +1,11 @@
 import { Component } from '@angular/core';
+import { GameStage } from '../../models/enums/gameStageEnum';
+import {
+  FindAllPlayersQueryGQL,
+  FindAllPlayersQueryQuery,
+  Round,
+} from '../../models/generated/graphql';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-game',
@@ -7,24 +14,35 @@ import { Component } from '@angular/core';
       <h3 class="text-center">🕹️ Game 🕹️</h3>
 
       <div class="position-relative m-4">
-        <div class="progress" role="progressbar" style="height: 1px;">
-          <div class="progress-bar" style="width: 0%"></div>
+        <div class="progress" role="progressbar" style="height: 3px;">
+          <div
+            class="progress-bar"
+            [style]="{
+              width: getProgessBarSetting(gameStage)
+            }"
+          ></div>
         </div>
         <button
           type="button"
-          class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill"
+          [class.btn-primary]="gameStage === GameStage.START"
+          [class.btn-secondary]="gameStage !== GameStage.START"
+          class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-secondary rounded-pill"
           style="width: 2rem; height:2rem;"
         >
           1
         </button>
         <button
           type="button"
+          [class.btn-primary]="gameStage === GameStage.INGAME"
+          [class.btn-secondary]="gameStage !== GameStage.INGAME"
           class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary rounded-pill"
           style="width: 2rem; height:2rem;"
         >
           2
         </button>
         <button
+          [class.btn-primary]="gameStage === GameStage.END"
+          [class.btn-secondary]="gameStage !== GameStage.END"
           type="button"
           class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill"
           style="width: 2rem; height:2rem;"
@@ -32,30 +50,75 @@ import { Component } from '@angular/core';
           3
         </button>
       </div>
-      <div class="stepone" *ngIf="false">
-        <p>1. Please select a player</p>
-        <div ngbDropdown class="d-inline-block">
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            id="dropdownBasic1"
-            ngbDropdownToggle
-          >
-            Toggle dropdown
-          </button>
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button ngbDropdownItem>Action - 1</button>
-          </div>
-        </div>
+      <div
+        id="firststep"
+        class="text-center"
+        *ngIf="gameStage === GameStage.START"
+      >
+        <p style="margin-top: 10px;">1. Select a player</p>
+        <select class="form-select" *ngFor="let player of players | async">
+          <option value="{{ player?.id }}">{{ player?.name }}</option>
+        </select>
+        <p style="margin-top: 10px;">2. Select amount of rounds</p>
+        <select class="form-select">
+          <option [value]="1">1</option>
+          <option [value]="2">2</option>
+          <option [value]="3">3</option>
+          <option [value]="3">4</option>
+          <option [value]="3">5</option>
+        </select>
+
+        <button
+          class="btn btn-success"
+          style="margin: 15px"
+          (click)="gameStage = GameStage.INGAME"
+        >
+          Start Game
+        </button>
       </div>
 
-      <div class="secondstep text-center" *ngIf="true">
+      <div
+        class="secondstep text-center"
+        *ngIf="gameStage === GameStage.INGAME"
+      >
         <h2>Please Choose</h2>
+
+        <button (click)="gameStage = GameStage.END">Next</button>
       </div>
-      <div class="thirdstep" *ngIf="true"></div>
+      <div
+        id="thirdstep"
+        class="text-center"
+        *ngIf="gameStage === GameStage.END"
+      >
+        <button class="btn btn-danger" (click)="gameStage = GameStage.START">
+          Restart
+        </button>
+      </div>
     </div>
   `,
 })
 export class GameComponent {
   selectedPlayer: string | null = null;
+  gameStage: GameStage = GameStage.START;
+  GameStage = GameStage;
+  numberRounds: Number = 1;
+  roundData: Round[] = [];
+  players: Observable<FindAllPlayersQueryQuery['findAllPlayers']>;
+
+  constructor(findAllPlayersQueryGQL: FindAllPlayersQueryGQL) {
+    this.players = findAllPlayersQueryGQL
+      .watch()
+      .valueChanges.pipe(map((result) => result.data.findAllPlayers ?? []));
+  }
+
+  getProgessBarSetting(gameStage: GameStage) {
+    switch (gameStage) {
+      case GameStage.START:
+        return '0%';
+      case GameStage.INGAME:
+        return '50%';
+      case GameStage.END:
+        return '100%';
+    }
+  }
 }

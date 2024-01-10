@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { GoalboardComponent } from './views/goalboard/goalboard.component';
+import { ScoreboardComponent } from './views/scoreboard/scoreboard.component';
 import { GameComponent } from './views/game/game.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PlayersComponent } from './views/players/players.component';
@@ -17,7 +17,7 @@ import { InMemoryCache } from '@apollo/client/core';
 @NgModule({
   declarations: [
     AppComponent,
-    GoalboardComponent,
+    ScoreboardComponent,
     GameComponent,
     NavbarComponent,
     PlayersComponent,
