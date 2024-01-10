@@ -1,0 +1,8 @@
+query findAllGames {
+    findGames {
+        id,
+        playerId,
+        rounds,
+        winner
+    }
+}

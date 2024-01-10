@@ -1,33 +1,39 @@
 import { Component } from '@angular/core';
+import {
+  FindAllGamesGQL,
+  FindAllGamesQuery,
+} from '../../models/generated/graphql';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-goalboard',
   template: `
-
-  <p>goalboard works! {{name}}</p>
-  <button type="button" class="btn btn-outline-primary" (click)="triggerCounter()" >Primary</button>
-  <h2>{{counter}}</h2>
-  <p *ngIf="show">Count above 20<p>
-
-
-  `
-
+    <h3 class="text-center">🎯 Goalboard 🎯</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th sortable="name">Player Name</th>
+          <th sortable="rounds">Rounds</th>
+          <th sortable="name">Winner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let game of games | async">
+          <td>{{ game?.playerId }}</td>
+          <td>{{ game?.rounds }}</td>
+          <td>{{ game?.winner }}</td>
+        </tr>
+      </tbody>
+    </table>
+  `,
 })
 export class GoalboardComponent {
-  name = 'Test variable';
-  counter = 0;
-  show = false;
+  games: Observable<FindAllGamesQuery['findGames']>;
 
-
-
-  public triggerCounter() {
-    this.counter = this.counter + 1;
-
-    if(this.counter > 19) {
-      this.show = true;
-    }
-
+  constructor(findAllGamesGQL: FindAllGamesGQL) {
+    this.games = findAllGamesGQL
+      .watch()
+      .valueChanges.pipe(map((result) => result.data.findGames ?? []));
   }
-
-
 }

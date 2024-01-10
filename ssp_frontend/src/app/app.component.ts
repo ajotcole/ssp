@@ -2,11 +2,19 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
+  styles: `
+  
+   .container {
+     max-width: 600px;
+   }
+ 
+`,
   template: `
-    <h1>Welcome to SSP Minigame</h1>
-    <router-outlet></router-outlet>
-    <button type="button" class="btn btn-outline-primary">Primary</button>
-  `
+    <div class="container">
+      <app-navbar></app-navbar>
+      <router-outlet></router-outlet>
+    </div>
+  `,
 })
 export class AppComponent {
   title = 'ssp_frontend';
