@@ -49,7 +49,11 @@ public class GameControllerIntegrationTest {
                 mutation CreateGame($playerId: Int!) {
                 createGame(playerId: $playerId) {
                 id,
-                playerId
+                playerEntity {
+                id
+                name                
+                                }
+                date
                 
         
                 }
@@ -129,7 +133,11 @@ public class GameControllerIntegrationTest {
                 query {
                     findGames {
                     id
-                    playerId
+                    date
+                    playerEntity {
+                        name
+                        id      
+                              }
                     rounds
                     winner
                     }

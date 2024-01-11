@@ -32,8 +32,9 @@ export type Scalars = {
 
 export type Game = {
   __typename?: 'Game';
+  date?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['Int']['output']>;
-  playerId?: Maybe<Scalars['Int']['output']>;
+  playerEntity?: Maybe<Player>;
   rounds?: Maybe<Scalars['Int']['output']>;
   winner?: Maybe<Scalars['String']['output']>;
 };
@@ -97,7 +98,24 @@ export type CreateGameWithRoundsMutation = {
   createGameWithRounds?: {
     __typename?: 'Game';
     id?: number | null;
-    playerId?: number | null;
+    playerEntity?: {
+      __typename?: 'Player';
+      id?: number | null;
+      name?: string | null;
+    } | null;
+  } | null;
+};
+
+export type CreatePlayerMutationVariables = Exact<{
+  name: Scalars['String']['input'];
+}>;
+
+export type CreatePlayerMutation = {
+  __typename?: 'Mutation';
+  createPlayer?: {
+    __typename?: 'Player';
+    id?: number | null;
+    name?: string | null;
   } | null;
 };
 
@@ -108,9 +126,14 @@ export type FindAllGamesQuery = {
   findGames?: Array<{
     __typename?: 'Game';
     id?: number | null;
-    playerId?: number | null;
     rounds?: number | null;
     winner?: string | null;
+    date?: string | null;
+    playerEntity?: {
+      __typename?: 'Player';
+      id?: number | null;
+      name?: string | null;
+    } | null;
   } | null> | null;
 };
 
@@ -136,7 +159,10 @@ export const CreateGameWithRoundsDocument = gql`
       ]
     ) {
       id
-      playerId
+      playerEntity {
+        id
+        name
+      }
     }
   }
 `;
@@ -154,13 +180,39 @@ export class CreateGameWithRoundsGQL extends Apollo.Mutation<
     super(apollo);
   }
 }
+export const CreatePlayerDocument = gql`
+  mutation createPlayer($name: String!) {
+    createPlayer(name: $name) {
+      id
+      name
+    }
+  }
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CreatePlayerGQL extends Apollo.Mutation<
+  CreatePlayerMutation,
+  CreatePlayerMutationVariables
+> {
+  override document = CreatePlayerDocument;
+
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
 export const FindAllGamesDocument = gql`
   query findAllGames {
     findGames {
       id
-      playerId
+      playerEntity {
+        id
+        name
+      }
       rounds
       winner
+      date
     }
   }
 `;

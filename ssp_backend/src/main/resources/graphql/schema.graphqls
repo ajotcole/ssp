@@ -20,8 +20,9 @@ type Player {
 
 type Game {
     id: Int
-    playerId: Int
+    playerEntity: Player
     rounds: Int
+    date: String
     winner: String
 }
 

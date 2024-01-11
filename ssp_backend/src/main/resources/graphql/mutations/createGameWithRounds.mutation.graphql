@@ -20,6 +20,9 @@ mutation CreateGameWithRounds($playerId: Int!) {
         ]
     ) {
         id
-        playerId
+        playerEntity {
+            id
+            name
+        }
     }
 }

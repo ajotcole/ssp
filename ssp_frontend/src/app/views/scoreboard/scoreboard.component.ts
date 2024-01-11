@@ -16,13 +16,15 @@ import { map } from 'rxjs/operators';
           <th class="text-center">Player Name</th>
           <th class="text-center">Rounds</th>
           <th class="text-center">Winner</th>
+          <th class="text-center">Date</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let game of games | async">
-          <td class="text-center">{{ game?.playerId }}</td>
+          <td class="text-center">{{ game?.playerEntity?.name }}</td>
           <td class="text-center">{{ game?.rounds }}</td>
           <td class="text-center">{{ game?.winner }}</td>
+          <td class="text-center">{{ game?.date }}</td>
         </tr>
       </tbody>
     </table>

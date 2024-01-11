@@ -1,8 +1,12 @@
 query findAllGames {
     findGames {
         id,
-        playerId,
+        playerEntity {
+            id,
+            name
+        }
         rounds,
-        winner
+        winner,
+        date
     }
 }

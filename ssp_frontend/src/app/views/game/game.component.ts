@@ -56,11 +56,19 @@ import { Observable, map } from 'rxjs';
         *ngIf="gameStage === GameStage.START"
       >
         <p style="margin-top: 10px;">1. Select a player</p>
-        <select class="form-select" *ngFor="let player of players | async">
-          <option value="{{ player?.id }}">{{ player?.name }}</option>
+        <select class="form-select">
+          <option
+            *ngFor="let player of players | async"
+            value="{{ player?.id }}"
+          >
+            {{ player?.name }}
+          </option>
         </select>
         <p style="margin-top: 10px;">2. Select amount of rounds</p>
-        <select class="form-select">
+        <select
+          (input)="numberRounds = $any($event.target).value"
+          class="form-select"
+        >
           <option [value]="1">1</option>
           <option [value]="2">2</option>
           <option [value]="3">3</option>
@@ -81,7 +89,7 @@ import { Observable, map } from 'rxjs';
         class="secondstep text-center"
         *ngIf="gameStage === GameStage.INGAME"
       >
-        <h2>Please Choose</h2>
+        <h2>Round {{ currentRound }} of {{ numberRounds }}</h2>
 
         <button (click)="gameStage = GameStage.END">Next</button>
       </div>
@@ -102,6 +110,7 @@ export class GameComponent {
   gameStage: GameStage = GameStage.START;
   GameStage = GameStage;
   numberRounds: Number = 1;
+  currentRound: Number = 1;
   roundData: Round[] = [];
   players: Observable<FindAllPlayersQueryQuery['findAllPlayers']>;
 
