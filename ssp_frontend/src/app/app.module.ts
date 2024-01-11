@@ -10,9 +10,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PlayersComponent } from './views/players/players.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GraphQLModule } from './graphql.module';
-import { APOLLO_OPTIONS } from 'apollo-angular';
-import { HttpLink } from 'apollo-angular/http';
-import { InMemoryCache } from '@apollo/client/core';
+import { ToastService } from './services/toast.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +27,7 @@ import { InMemoryCache } from '@apollo/client/core';
     HttpClientModule,
     GraphQLModule,
   ],
-  providers: [],
+  providers: [ToastService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

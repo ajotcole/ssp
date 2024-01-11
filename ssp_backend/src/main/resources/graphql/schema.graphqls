@@ -10,7 +10,7 @@ type Query {
 type Mutation {
     createPlayer(name: String!): Player
     createGame(playerId: Int!): Game
-    createGameWithRounds(playerId: Int!, roundEntities: [RoundInput]!): Game
+    createGameWithRounds(playerId: Int!, roundEntities: [RoundInput!]!): Game
 }
 
 type Player {

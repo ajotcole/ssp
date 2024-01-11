@@ -1,4 +1,4 @@
-export enum GameStage {
+export enum GameStageEnum {
   START,
   INGAME,
   END,

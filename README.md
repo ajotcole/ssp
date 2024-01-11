@@ -17,7 +17,9 @@ Angular frontend.
 
 ### Project Description
 
-TODO add more info
+TODO add picture with entites
+
+TODO add picture of structure
 
 This project also makes use of the following technologies:
 
@@ -57,7 +59,7 @@ TODO
 - [x] Backend: Create Test Setup
 - [x] Backend: Build Main Logic
 - [x] Frontend: Add UI Framework
-- [ ] Frontend: Integrate GraphQL and Schema
+- [x] Frontend: Integrate GraphQL and Schema
 - [ ] Frontend: Build Game UI
 - [ ] Docker: Build Docker Compose setup
 - [ ] Make: Create Makefile Setup

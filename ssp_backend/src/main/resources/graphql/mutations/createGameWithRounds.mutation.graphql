@@ -1,23 +1,7 @@
-mutation CreateGameWithRounds($playerId: Int!) {
+mutation CreateGameWithRounds($playerId: Int!, $roundData: [RoundInput!]!) {
     createGameWithRounds(
         playerId: $playerId
-        roundEntities: [
-            {
-                humanChoice: "foo"
-                computerChoice: "foo"
-                winner: "human"
-            },
-            {
-                humanChoice: "foo"
-                computerChoice: "foo"
-                winner: "computer"
-            },
-            {
-                humanChoice: "foo"
-                computerChoice: "foo"
-                winner: "computer"
-            }
-        ]
+        roundEntities: $roundData
     ) {
         id
         playerEntity {

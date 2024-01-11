@@ -1,24 +1,32 @@
-export const playRockPaperScissors = (userChoice: string) => {
-  const choices = ['rock', 'paper', 'scissors'];
-  const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+import { ChoiceEnum } from '../models/enums/choiceEnum';
+import { WinnerEnum } from '../models/enums/winnerEnum';
+import { Round } from '../models/generated/graphql';
 
-  userChoice = userChoice.toLowerCase();
+export const playRockPaperScissors = (humanChoice: ChoiceEnum) => {
+  const choices = Object.values(ChoiceEnum).filter(
+    (value) => value !== ChoiceEnum.UNTOUCHED
+  );
+  const randomIndex = Math.floor(Math.random() * choices.length);
+  const computerChoice = choices[randomIndex] as ChoiceEnum;
 
-  if (!choices.includes(userChoice)) {
-    return 'Invalid choice. Please choose rock, paper, or scissors.';
-  }
+  let winner: WinnerEnum;
 
-  if (userChoice === computerChoice) {
-    return `It's a tie! Both chose ${userChoice}.`;
-  }
-
-  if (
-    (userChoice === 'rock' && computerChoice === 'scissors') ||
-    (userChoice === 'paper' && computerChoice === 'rock') ||
-    (userChoice === 'scissors' && computerChoice === 'paper')
+  if (humanChoice === computerChoice) {
+    winner = WinnerEnum.TIE;
+  } else if (
+    (humanChoice === ChoiceEnum.STONE &&
+      computerChoice === ChoiceEnum.SCISSOR) ||
+    (humanChoice === ChoiceEnum.PAPER && computerChoice === ChoiceEnum.STONE) ||
+    (humanChoice === ChoiceEnum.SCISSOR && computerChoice === ChoiceEnum.PAPER)
   ) {
-    return `You win! ${userChoice} beats ${computerChoice}.`;
+    winner = WinnerEnum.HUMAN;
   } else {
-    return `You lose! ${computerChoice} beats ${userChoice}.`;
+    winner = WinnerEnum.COMPUTER;
   }
+
+  return {
+    computerChoice,
+    humanChoice,
+    winner,
+  };
 };

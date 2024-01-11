@@ -1,17 +1,22 @@
-import { Component, TemplateRef, inject } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  TemplateRef,
+  inject,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
-  CreateGameWithRoundsDocument,
   CreatePlayerDocument,
-  CreatePlayerMutation,
   FindAllPlayersQueryDocument,
   FindAllPlayersQueryGQL,
   FindAllPlayersQueryQuery,
-  Player,
 } from '../../models/generated/graphql';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Apollo } from 'apollo-angular';
+import { ToastService } from '../../services/toast.service';
+import { ToastsContainer } from '../../components/toast/toastcontainer.component';
 
 @Component({
   selector: 'app-players',
@@ -63,10 +68,11 @@ import { Apollo } from 'apollo-angular';
     </ng-template>
   `,
 })
-export class PlayersComponent {
+export class PlayersComponent implements OnDestroy {
   players: Observable<FindAllPlayersQueryQuery['findAllPlayers']>;
   newPlayerName: String = '';
   private modalService = inject(NgbModal);
+  toastService = inject(ToastService);
   closeResult = '';
 
   constructor(
@@ -77,8 +83,9 @@ export class PlayersComponent {
       .watch()
       .valueChanges.pipe(map((result) => result.data.findAllPlayers ?? []));
   }
-
-  fetchPlayers() {}
+  ngOnDestroy(): void {
+    this.toastService.clear();
+  }
 
   saveNewPlayer() {
     this.apollo
@@ -92,6 +99,10 @@ export class PlayersComponent {
       .subscribe(
         ({ data }) => {
           console.log('got data', data);
+          this.toastService.show({
+            body: 'Player sucessfully created!',
+            classname: 'bg-success text-light',
+          });
         },
         (error) => {
           console.log('there was an error sending the query', error);

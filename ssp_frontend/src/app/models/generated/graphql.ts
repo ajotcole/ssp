@@ -91,6 +91,7 @@ export type RoundInput = {
 
 export type CreateGameWithRoundsMutationVariables = Exact<{
   playerId: Scalars['Int']['input'];
+  roundData: Array<RoundInput> | RoundInput;
 }>;
 
 export type CreateGameWithRoundsMutation = {
@@ -149,15 +150,8 @@ export type FindAllPlayersQueryQuery = {
 };
 
 export const CreateGameWithRoundsDocument = gql`
-  mutation CreateGameWithRounds($playerId: Int!) {
-    createGameWithRounds(
-      playerId: $playerId
-      roundEntities: [
-        { humanChoice: "foo", computerChoice: "foo", winner: "human" }
-        { humanChoice: "foo", computerChoice: "foo", winner: "computer" }
-        { humanChoice: "foo", computerChoice: "foo", winner: "computer" }
-      ]
-    ) {
+  mutation CreateGameWithRounds($playerId: Int!, $roundData: [RoundInput!]!) {
+    createGameWithRounds(playerId: $playerId, roundEntities: $roundData) {
       id
       playerEntity {
         id

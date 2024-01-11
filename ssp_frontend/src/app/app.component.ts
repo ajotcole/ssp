@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { ToastService } from './services/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,6 @@ import { Component } from '@angular/core';
      margin-top: 15px;
      margin-bottom: 15px;
      padding: 30px;
-     height: calc(100vh - 30px);
    }
  
 `,
