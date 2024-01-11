@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>com.ajotcole</groupId>
 	<artifactId>ssp_backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>ssp_backend</name>
 	<description>Backend for a SSP Game</description>
 	<properties>

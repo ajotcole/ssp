@@ -1,5 +1,7 @@
 # Stone, Scissors, Paper Minigame
 
+![Application UI](assets/mainui.png)
+
 ### TL;DR;
 
 This mono repo which contains a mini gameEntity of Stone, Scissors, Paper
@@ -17,9 +19,13 @@ Angular frontend.
 
 ### Project Description
 
-TODO add picture with entites
+#### Entities
 
-TODO add picture of structure
+![Entities](assets/entities.png)
+
+#### Project Communication Structure
+
+![Connections](assets/connections.png)
 
 This project also makes use of the following technologies:
 
@@ -30,28 +36,43 @@ This project also makes use of the following technologies:
 - PostgreSQL
 - GraphQL
 - Angular
+- Apollo-Angular
+- Codegen-GraphQL
 - Makefile
 - Docker
 
 <a name="howtoinstall"></a>
 
 ### How to install
-
 Prerequisites:
 
 - Java 17 installed
 - Maven installed
+- Node Version 20 Installed
+- Docker installed and engine running
+- Make sure you are able to execute make command
 
-TODO
+Simply running the following command:
+
+> make install
+
+This will create the docker images for the frontend and backend on
+your local machine
 
 <a name="howtorun"></a>
-
 ### How to run
 
-TODO
+To start the whole project please run the following command:
+
+> make start
+
+The frontend should now be accessible at [http://localhost:4200](http://localhost:4200)
+and the backend at [http://localhost:8080](http://localhost:8080)
+
+To try out GraphQL commands, head over to the GraphQL Playground at
+[http://localhost:8080/graphiql](http://localhost:8080/graphiql).
 
 <a name="opentodos"></a>
-
 ### Open Todos
 
 - [x] Create base folder structure
@@ -60,6 +81,14 @@ TODO
 - [x] Backend: Build Main Logic
 - [x] Frontend: Add UI Framework
 - [x] Frontend: Integrate GraphQL and Schema
-- [ ] Frontend: Build Game UI
-- [ ] Docker: Build Docker Compose setup
-- [ ] Make: Create Makefile Setup
+- [x] Frontend: Build Game UI
+- [x] Docker: Build Docker Compose setup
+- [x] Make: Create Makefile Setup
+
+### Potential refactoring and known bugs
+
+- [ ] Frontend: seperate parts of the game.component.ts into seperate components
+- [ ] Backend: improve integration tests to check more on values
+- [ ] Overall: more comments for better understanding
+- [ ] Frontend docker file: host static files instead of angular process
+- [ ] Frontend scoreboard: implement nginit to always refresh list after game

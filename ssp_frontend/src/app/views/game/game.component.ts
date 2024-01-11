@@ -5,8 +5,6 @@ import {
   CreateGameWithRoundsGQL,
   FindAllPlayersQueryGQL,
   FindAllPlayersQueryQuery,
-  Player,
-  Round,
 } from '../../models/generated/graphql';
 import { Observable, map } from 'rxjs';
 import { ChoiceEnum } from '../../models/enums/choiceEnum';
@@ -110,8 +108,8 @@ import { RoundInput } from '../../../generated/graphql';
           <option [value]="1">1</option>
           <option [value]="2">2</option>
           <option [value]="3">3</option>
-          <option [value]="3">4</option>
-          <option [value]="3">5</option>
+          <option [value]="4">4</option>
+          <option [value]="5">5</option>
         </select>
 
         <button
@@ -259,7 +257,7 @@ export class GameComponent {
   ChoiceEnum = ChoiceEnum;
   WinnerEnum = WinnerEnum;
   Number = Number;
-  selectedPlayerId: Number = 0;
+  selectedPlayerId: Number = 1;
   gameStage: GameStageEnum = GameStageEnum.START;
   humanChoice: ChoiceEnum = ChoiceEnum.UNTOUCHED;
   computerChoice: ChoiceEnum = ChoiceEnum.UNTOUCHED;
@@ -337,7 +335,7 @@ export class GameComponent {
 
   // Reset game
   clickRestart() {
-    this.selectedPlayerId = 0;
+    this.selectedPlayerId = 1;
     this.numberRounds = 1;
     this.currentRound = 1;
     this.roundWinner = WinnerEnum.UNTOUCHED;
